@@ -1,0 +1,37 @@
+const clickCountDisplay = document.getElementById('click-count');
+const header = document.getElementById('header');
+const button = document.getElementById('click-button');
+
+// 1. Add a comment here explaining the let clickCount variable  
+let clickCount = localStorage.getItem('clickCount') ? parseInt(localStorage.getItem('clickCount')) : 0;
+// The `clickCount` variable checks if a previous click count exists in the localStorage. If it does, it is parsed as an integer; if not, the count starts at 0.
+
+
+// Update display on load
+clickCountDisplay.textContent = clickCount;
+updateUI();
+
+// 2. Explain what this event listener function does (and what function it calls).
+// Add event listener to button
+button.addEventListener('click', () => {
+    clickCount++;  // Increases the click count by 1
+    localStorage.setItem('clickCount', clickCount);  // Stores the updated count in localStorage
+    clickCountDisplay.textContent = clickCount;  // Updates the displayed count on the page
+    updateUI();  // Calls the `updateUI` function to change the background color and text
+});
+
+// 3. Explain what function updateUI does and is holding the colors and texts
+function updateUI() {
+    const colors = ['#FF5733', '#33FF57', '#3357FF', '#F5A623', '#E91E63'];
+    const texts = [
+        'Keep going!',
+        'Great job!',
+        'You are amazing!',
+        'Fantastic!',
+        'Click click hooray!'
+    ];
+
+    const randomIndex = Math.floor(Math.random() * colors.length);  // Picks a random index
+    document.body.style.backgroundColor = colors[randomIndex];  // Changes the background color to a random choice
+    header.textContent = texts[randomIndex];  // Updates the header text to a corresponding message
+}
